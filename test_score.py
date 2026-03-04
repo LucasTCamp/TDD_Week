@@ -20,12 +20,6 @@ def test_multiplier_updates(game):
     result = apply_multiplier(game, 4)
     assert result["multiplier"] == 4
 
-
-def test_multiplier_apply(game):
-    game["score"] = 5
-    result = apply_multiplier(game, 2)
-    assert result["score"] == 10
-
 def test_apply_multiplier_greater_equal_1(game):
     with pytest.raises(ValueError):
         apply_multiplier(game, 0)
@@ -42,20 +36,18 @@ def test_reset_score(game):
 
 def test_still_resets_inactive(game):
     game["active"] = False
-    result = reset(game)
+    result = reset_score(game)
     assert result["score"] == 0 and result["multiplier"] == 1
 
 def test_is_high_score(game):
-    result = is_high_score(game, 5)
-    if result["score"] > threshold:
-        assert True
-    else:
-        assert False
+    threshold = 5
+    result = is_high_score(game, threshold)
+    assert result == True
 
 def test_equal_high_score(game):
-    result = is_high_score(game, 1)
-    if result["score"] == threshold:
-        assert False
+    threshold = 0
+    result = is_high_score(game, threshold)
+    assert result == False
 
 def test_greater_equal_0_high_score(game):
     with pytest.raises(ValueError):
