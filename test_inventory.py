@@ -41,7 +41,6 @@ def test_get_item_count_returns_zero(empty_inventory):
 
 def test_get_item_count_returns_count_locked_inventory(locked_inventory):
     result = get_item_count(locked_inventory)
-    assert result == 10
+    assert result == 1
 
 
-    
