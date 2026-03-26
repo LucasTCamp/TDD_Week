@@ -6,9 +6,11 @@ def test_add_points(game):
     result = add_points(game, 5)
     assert result["score"] == 5
 
+
 def test_add_points_rejects_negative(game):
     with pytest.raises(ValueError):
         add_points(game, -5)
+
 
 def test_add_points_inactive_have_no_update(game):
     game["active"] = False
@@ -20,9 +22,11 @@ def test_multiplier_updates(game):
     result = apply_multiplier(game, 4)
     assert result["multiplier"] == 4
 
+
 def test_apply_multiplier_greater_equal_1(game):
     with pytest.raises(ValueError):
         apply_multiplier(game, 0)
+
 
 def test_no_multiplier_added_when_inactive(game):
     game["active"] = False
@@ -30,24 +34,29 @@ def test_no_multiplier_added_when_inactive(game):
     result = apply_multiplier(game, 2)
     assert result["score"] == 2
 
+
 def test_reset_score(game):
     result = reset_score(game)
     assert result["score"] == 0 and result["multiplier"] == 1
+
 
 def test_still_resets_inactive(game):
     game["active"] = False
     result = reset_score(game)
     assert result["score"] == 0 and result["multiplier"] == 1
 
+
 def test_is_high_score(game):
     threshold = 5
     result = is_high_score(game, threshold)
-    assert result == True
+    assert result is True
+
 
 def test_equal_high_score(game):
     threshold = 0
     result = is_high_score(game, threshold)
-    assert result == False
+    assert result is False
+
 
 def test_greater_equal_0_high_score(game):
     with pytest.raises(ValueError):
